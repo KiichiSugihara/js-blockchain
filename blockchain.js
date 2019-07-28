@@ -1,3 +1,4 @@
+const sha256 = require('sha256')
 module.exports = class Blockchain {
   constructor() {
     this.chain = []
@@ -29,5 +30,11 @@ module.exports = class Blockchain {
     }
 
     this.pendingTransactions.push(newTransaction)
+  }
+  hashBlock(previousBlockHash, currentBlockData, nonce) {
+    const dataAsString =
+      previousBlockHash + nonce.toString() + JSON.stringify(currentBlockData)
+    const hash = sha256(dataAsString)
+    return hash
   }
 }
