@@ -3,6 +3,7 @@ module.exports = class Blockchain {
   constructor() {
     this.chain = []
     this.pendingTransactions = []
+    this.createNewBlock(100, '0', '0')
   }
   createNewBlock(nonce, previousBlockHash, hash) {
     const newBlock = {
@@ -40,7 +41,7 @@ module.exports = class Blockchain {
   proofOfWork(previousBlockHash, currentBlockData) {
     let nonce = 0
     let hash = this.hashBlock(previousBlockHash, currentBlockData, nonce)
-    while (hash.substring(0, 4) !== '0000') {
+    while (hash.substring(0, 5) !== '00000') {
       nonce++
       hash = this.hashBlock(previousBlockHash, currentBlockData, nonce)
     }
